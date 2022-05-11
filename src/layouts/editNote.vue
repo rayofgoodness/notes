@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="container">
-      <p class="bread bread_crumbs" @click="isBackToMainPage = true">
+      <p class="bread_crumbs" @click="openModalBackToMainPage">
         Main page
       </p>
       <div class="edit_page_wrapper">
@@ -49,7 +49,7 @@
       </div>
       <custom-modal v-if="isBackToMainPage"
                     :title="`Save changes?`"
-                    @close="isBackToMainPage = false">
+                    @close="closeModalBackToMainPage">
         <div class="buttons_block">
           <custom-button @click="saveChanges('/')">
             Save
@@ -124,12 +124,15 @@ export default {
     ]),
   },
   methods: {
+    openModalBackToMainPage() {
+      this.isBackToMainPage = true;
+    },
+    closeModalBackToMainPage() {
+      this.isBackToMainPage = false;
+    },
     saveChanges(url) {
       this.$store.commit('ADD_NOTE_TO_NOTES', this.editedNote);
-      this.isSavedChanges = true;
-      setTimeout((()=>{
-        this.isSavedChanges = false;
-      }), 2000)
+      this.displayNotification();
       if (url) {
         this.$router.push(url)
       }
@@ -155,7 +158,13 @@ export default {
     },
     backToMain() {
       this.$router.push('/');
-    }
+    },
+    displayNotification() {
+      this.isSavedChanges = true;
+      setTimeout((()=>{
+        this.isSavedChanges = false;
+      }), 2000)
+    },
   }
 }
 </script>
