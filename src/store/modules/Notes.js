@@ -27,15 +27,15 @@ const Notes = {
         },
         CREATE_NOTE(state, payload) {
             state.notes.push(payload);
-            localStorage.setItem('notes',JSON.stringify(state.notes));
+            localStorage.setItem('notes', JSON.stringify(state.notes));
         },
         ADD_NOTE_TO_NOTES(state, payload) {
             state.notes[state.notes.indexOf(state.notes.find(note => note.id === parseInt(payload.id)))] = payload;
-            localStorage.setItem('notes',JSON.stringify(state.notes));
+            localStorage.setItem('notes', JSON.stringify(state.notes));
         },
         REMOVE_NOTE_FROM_NOTES(state, payload) {
-            state.notes = state.notes.filter(n => n.id !== payload);
-            localStorage.setItem('notes',JSON.stringify(localStoreNotes.filter(n => n.id !== payload)));
+            state.notes = state.notes.filter(note => note.id !== payload);
+            localStorage.setItem('notes', JSON.stringify(localStoreNotes.filter(n => n.id !== payload)));
         },
         SET_NOTE_TO_STATE(state, payload) {
             state.note = payload;
@@ -43,7 +43,7 @@ const Notes = {
     },
     actions: {
         GET_NOTE_FROM_NOTES_STATE({state, commit}, payload) {
-            let storedNote = state.notes.find(val => val.id === payload)
+            let storedNote = state.notes.find(note => note.id === payload)
             commit('SET_NOTE_TO_STATE', storedNote)
         }
     },

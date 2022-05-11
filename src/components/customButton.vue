@@ -1,13 +1,12 @@
 <template>
-<div class="button_wrapper">
-  <button class="custom_button"
-          :disabled="disabled"
-          :type="type"
-          @click="onButtonClick">
-    <slot name="icon"/>
-    <slot/>
-  </button>
-</div>
+  <div class="button_wrapper">
+    <button class="custom_button"
+            :disabled="disabled"
+            @click="onButtonClick">
+      <slot name="icon"/>
+      <slot/>
+    </button>
+  </div>
 </template>
 
 <script>
@@ -18,9 +17,6 @@ export default {
       type: Boolean,
       default: false
     },
-    type: {
-      type: String
-    }
   },
   methods: {
     onButtonClick(e) {

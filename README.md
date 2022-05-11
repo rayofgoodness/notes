@@ -1,4 +1,4 @@
-# test
+# Notes
 
 ## Project setup
 ```
@@ -18,6 +18,11 @@ npm run build
 ### Lints and fixes files
 ```
 npm run lint
+```
+
+### Deploy to URL rayofgoodness.github.io/notes/
+```
+npm run deploy
 ```
 
 ### Customize configuration

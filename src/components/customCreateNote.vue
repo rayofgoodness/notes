@@ -1,35 +1,37 @@
 <template>
   <div class="note_wrapper">
-    <div class="add_note_icon" @click="approveSaveChanges = true">
-      <addIcon />
+    <div class="add_note_icon" @click="openSaveChangesModal">
+      <addIcon/>
     </div>
-    <custom-modal v-if="approveSaveChanges"
+    <custom-modal v-if="isOpenSaveChanges"
                   :title="'Create note'"
-                  @close="approveSaveChanges = false">
+                  @close="closeSaveChangesModal">
       <div class="create_todo_form">
         <div class="title_form">
           <p class="form_title">Note name</p>
-          <custom-input  v-model="noteTitle"
-                         :placeholder="'Write note name'"/>
+          <custom-input v-model="noteTitle"
+                        :placeholder="'Write note name'"/>
         </div>
         <div class="todos_form">
           <p class="form_title">Todo</p>
-          <div class="todo" v-for="todo in noteTodo" :key="noteTodo[todo]">
-            <input type="checkbox" v-model="todo.checked">
+          <div class="todo" v-for="todo in noteTodo" :key="noteTodo[todo]"> // Better use :key="todo.id", but noteTodo - array of string, and they're don't have id's in this case
+            <custom-input v-model="todo.checked"
+                          :type="'checkbox'"
+                          :custom-class="'checkbox'"/>
             <custom-input
                 v-model="todo.description"
                 :is-disabled="todo.checked"
                 :custom-class="todo.checked ? 'checked' : ''"
                 :placeholder="todo.description"/>
-          </div>
+          </div> //
           <div class="add_todo">
             <add-icon @add="addTodo"/>
           </div>
         </div>
       </div>
       <div class="buttons_block">
-        <custom-button @click="approveSaveChanges = false">Cancel</custom-button>
-        <custom-button @click="createNote">Create</custom-button>
+        <custom-button @click="isOpenSaveChanges = false">Cancel</custom-button>
+        <custom-button @click="createNewNote">Create</custom-button>
       </div>
     </custom-modal>
   </div>
@@ -52,7 +54,7 @@ export default {
   },
   data() {
     return {
-      approveSaveChanges: false,
+      isOpenSaveChanges: false,
       noteTitle: '',
       noteTodo: [
         {
@@ -68,7 +70,13 @@ export default {
     ])
   },
   methods: {
-    createNote() {
+    openSaveChangesModal() {
+      this.isOpenSaveChanges = true;
+    },
+    closeSaveChangesModal() {
+      this.isOpenSaveChanges = false;
+    },
+    createNewNote() {
       let id = this.NOTES.length + 1;
       let createdNote = {
         id: id,
@@ -77,7 +85,7 @@ export default {
       };
       this.$store.commit('CREATE_NOTE', createdNote);
       createdNote = {};
-      this.approveSaveChanges = false;
+      this.closeSaveChangesModal();
     },
     addTodo() {
       let newTodo = {

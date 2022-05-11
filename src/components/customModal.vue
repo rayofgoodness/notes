@@ -1,41 +1,23 @@
 <template>
   <div class="custom_modal" :class="customPopUpClasses">
-
     <div class="modal_wrapper">
-
-      <div class="modal-content">
-
-        <div v-if="closeButton" @click="$emit('close')" class="modal-close-button">
-
-          <close-icon/>
-
-        </div>
-
-        <div v-if="title" class="modal-title">
+      <div class="modal_content">
+        <div v-if="title" class="modal_title">
           <h2 v-html="title"/>
         </div>
-
-        <div v-if="subTitle" class="modal-sub-title">
+        <div v-if="subTitle" class="modal_sub_title">
           <p v-html="subTitle"/>
         </div>
-
         <slot/>
-
       </div>
-
     </div>
-
   </div>
 </template>
 
 <script>
-import closeIcon from "@/components/icons/closeIcon";
 
 export default {
   name: "customModal",
-  components: {
-    closeIcon
-  },
   data() {
     return {
       open: true
@@ -79,8 +61,7 @@ export default {
     overflow-y: auto;
     overflow-x: hidden;
 
-
-    .modal-content {
+    .modal_content {
       position: relative;
       display: grid;
       align-self: center;
@@ -95,28 +76,7 @@ export default {
       border-radius: 12px;
       color: #191926FF;
 
-
-      .modal-close-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        position: absolute;
-        top: 8px;
-        right: 8px;
-        width: fit-content;
-        height: fit-content;
-        cursor: pointer;
-        padding: 4px;
-        z-index: 999;
-
-        svg {
-          path {
-            stroke: #191926FF;
-          }
-        }
-      }
-
-      .modal-title {
+      .modal_title {
         display: flex;
         justify-content: center;
         max-width: 100%;
@@ -127,7 +87,7 @@ export default {
         letter-spacing: 2px;
       }
 
-      .modal-sub-title {
+      .modal_sub_title {
         display: flex;
         max-width: 100%;
         font-style: normal;
@@ -138,7 +98,7 @@ export default {
     }
   }
 
-  .popUpWrapper::-webkit-scrollbar {
+  .modal_wrapper::-webkit-scrollbar {
     width: 0;
   }
 }

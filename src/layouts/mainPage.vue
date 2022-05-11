@@ -23,27 +23,23 @@ export default {
   name: "mainPage",
   components: {
     customNote,
-    customCreateNote
-  },
-  data() {
-    return {}
+    customCreateNote,
   },
   created() {
     if (localStorage.getItem('notes')) {
-      this.$store.commit('SET_NOTES_FROM_LOCAL_STORE',JSON.parse(localStorage.getItem('notes')));
-    }else {
-      let storageNotes = JSON.stringify(this.NOTES)
-      localStorage.setItem('notes', storageNotes);
+      this.$store.commit('SET_NOTES_FROM_LOCAL_STORE', JSON.parse(localStorage.getItem('notes')));
+    } else {
+      localStorage.setItem('notes', JSON.stringify(this.NOTES));
     }
   },
   computed: {
     ...mapGetters([
-        'NOTES'
+        'NOTES',
     ])
   },
   methods: {
     editNote(id) {
-      this.$router.push(`/edit/${id}`)
+      this.$router.push(`/edit/${id}`);
     },
   }
 }

@@ -1,7 +1,7 @@
 <template>
   <section>
     <div class="container">
-      <p class="crumbs" @click="isBacToMainPage = true">
+      <p class="bread bread_crumbs" @click="isBackToMainPage = true">
         Main page
       </p>
       <div class="edit_page_wrapper">
@@ -20,9 +20,9 @@
               Todo list:
             </p>
             <div class="todos_wrapper">
-              <div class="todo" v-for="todo in editedNote.data" :key="editedNote.data[todo]">
+              <div class="todo" v-for="todo in editedNote.data" :key="editedNote.data[todo]"> // Better use :key="todo.id", but editedNote.data - array of string, and they're don't have id's in this case
                 <custom-input :type="'checkbox'"
-                              :customClass="'checkbox'"
+                              :custom-class="'checkbox'"
                               v-model="todo.checked"/>
                 <custom-input
                     v-model="todo.description"
@@ -44,10 +44,11 @@
             </custom-button>
           </div>
         </div>
+        <p class="saved_message" v-if="isSavedChanges">Changes saved</p>
       </div>
-      <custom-modal v-if="isBacToMainPage"
+      <custom-modal v-if="isBackToMainPage"
                     :title="`Save changes?`"
-                    @close="isBacToMainPage = false">
+                    @close="isBackToMainPage = false">
         <div class="buttons_block">
           <custom-button @click="saveChanges('/')">
             Save
@@ -105,9 +106,10 @@ export default {
   data() {
     return {
       editedNote: null,
-      isBacToMainPage: false,
+      isBackToMainPage: false,
       isCancelChanges: false,
       isRemovedTodo: false,
+      isSavedChanges: false,
       removedTodo: {},
     }
   },
@@ -123,6 +125,10 @@ export default {
   methods: {
     saveChanges(url) {
       this.$store.commit('ADD_NOTE_TO_NOTES', this.editedNote);
+      this.isSavedChanges = true;
+      setTimeout((()=>{
+        this.isSavedChanges = false;
+      }), 2000)
       if (url) {
         this.$router.push(url)
       }
@@ -136,7 +142,7 @@ export default {
       this.isRemovedTodo = true;
     },
     removeTodo(item) {
-      this.editedNote.data = this.editedNote.data.filter(val => val !== item);
+      this.editedNote.data = this.editedNote.data.filter(todo => todo !== item);
       this.isRemovedTodo = false;
     },
     addTodo() {
@@ -159,7 +165,7 @@ export default {
   max-width: 1440px;
   margin: 0 auto;
 
-  .crumbs {
+  .bread_crumbs {
     cursor: pointer;
     font-size: 18px;
     line-height: 30px;
@@ -232,6 +238,16 @@ export default {
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 10px;
       }
+    }
+
+    .saved_message {
+      display: grid;
+      justify-self: center;
+      color: green;
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 31px;
+      margin-top: 30px;
     }
   }
 

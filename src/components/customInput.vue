@@ -5,7 +5,6 @@
            :class="customClass"
            :disabled="isDisabled"
            :type="type"
-           :required="required"
            :placeholder="placeholder">
   </div>
 </template>
@@ -23,10 +22,6 @@ export default {
       default: ''
     },
     isDisabled: {
-      type: Boolean,
-      default: false
-    },
-    required: {
       type: Boolean,
       default: false
     },

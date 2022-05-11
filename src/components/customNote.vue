@@ -4,23 +4,23 @@
       <h4 class="note_title" v-html="data.name"></h4>
       <div class="icon_block">
         <addIcon @editNote="$emit('editNote')"/>
-        <trashIcon @remove="approveChanges = true"/>
+        <trashIcon @remove="openModalSaveChanges"/>
       </div>
     </div>
     <div class="note_data_block">
       <p>TODO LIST:</p>
       <div class="todo_list">
-        <div class="todo" v-for="todo in data.data.slice(0, 2)" :key="data.data[todo]">
+        <div class="todo" v-for="todo in data.data.slice(0, 2)" :key="data.data[todo]"> // Better use :key="todo.id", but data.data - array of string, and they're don't have id's in this case
           <p :class="todo.checked ? 'checked' : ''" v-html="todo.description"/>
         </div>
       </div>
     </div>
-    <custom-modal v-if="approveChanges"
+    <custom-modal v-if="saveChanges"
                   :title="`Approve delete ${data.name}?`"
-                  @close="approveChanges = false">
+                  @close="closeModalSaveChanges">
       <div class="buttons_block">
         <custom-button @click="removeNote(data.id)">Delete</custom-button>
-        <custom-button @click="approveChanges = false">Cancel</custom-button>
+        <custom-button @click="closeModalSaveChanges">Cancel</custom-button>
       </div>
     </custom-modal>
   </div>
@@ -42,8 +42,7 @@ export default {
   },
   data() {
     return {
-      approveChanges: false,
-      isDelete: false
+      saveChanges: false,
     }
   },
   props: {
@@ -54,6 +53,12 @@ export default {
     }
   },
   methods: {
+    openModalSaveChanges() {
+      this.saveChanges = true;
+    },
+    closeModalSaveChanges() {
+      this.saveChanges = false;
+    },
     removeNote(id) {
       this.$store.commit('REMOVE_NOTE_FROM_NOTES', id)
     },

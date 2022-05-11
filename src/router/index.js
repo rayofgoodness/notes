@@ -9,7 +9,7 @@ const routes = [
 ];
 
 const index = new VueRouter({
-    mode: 'history',
+    mode: 'history', //for deploy to github pages use mode: 'hash'
     routes,
 });
 
