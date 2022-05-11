@@ -1,11 +1,11 @@
 import VueRouter from 'vue-router';
 import mainPage from '@/layouts/mainPage'
-import editPage from "@/layouts/editPage";
+import editNote from "@/layouts/editNote";
 
 
 const routes = [
     { path: '/', component: mainPage },
-    { path: '/edit', component: editPage },
+    { path: '/edit/:id', component: editNote },
 ];
 
 const router = new VueRouter({

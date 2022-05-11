@@ -10,3 +10,10 @@ export default {
   name: 'App',
 }
 </script>
+
+<style lang="scss">
+* {
+  font-family: "Apple Symbols", sans-serif;
+  font-style: normal;
+}
+</style>
