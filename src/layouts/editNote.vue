@@ -114,9 +114,12 @@ export default {
       removedTodo: {},
     }
   },
-  created() {
-    this.$store.dispatch('GET_NOTE_FROM_NOTES_STATE', parseInt(this.$route.params.id));
-    this.editedNote = {...this.NOTE};
+  async created() {
+    if (localStorage.getItem('notes')) {
+      await this.$store.commit('SET_NOTES_FROM_LOCAL_STORE', JSON.parse(localStorage.getItem('notes')));
+    }
+    await this.$store.dispatch('GET_NOTE_FROM_NOTES_STATE', parseInt(this.$route.params.id));
+    this.editedNote = this.NOTE;
   },
   computed: {
     ...mapGetters([
