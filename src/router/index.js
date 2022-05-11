@@ -8,9 +8,9 @@ const routes = [
     { path: '/edit/:id', component: editNote },
 ];
 
-const router = new VueRouter({
+const index = new VueRouter({
     mode: 'history',
     routes,
 });
 
-export default router;
+export default index;
