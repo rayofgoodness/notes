@@ -14,7 +14,8 @@
         </div>
         <div class="todos_form">
           <p class="form_title">Todo</p>
-          <div class="todo" v-for="todo in noteTodo" :key="noteTodo[todo]"> // Better use :key="todo.id", but noteTodo - array of string, and they're don't have id's in this case
+<!--          Better use :key="todo.id", but noteTodo - array of string, and they're don't have id's in this case-->
+          <div class="todo" v-for="todo in noteTodo" :key="noteTodo[todo]">
             <custom-input v-model="todo.checked"
                           :type="'checkbox'"
                           :custom-class="'checkbox'"/>
@@ -23,7 +24,7 @@
                 :is-disabled="todo.checked"
                 :custom-class="todo.checked ? 'checked' : ''"
                 :placeholder="todo.description"/>
-          </div> //
+          </div>
           <div class="add_todo">
             <add-icon @add="addTodo"/>
           </div>

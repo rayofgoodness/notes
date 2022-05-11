@@ -10,7 +10,8 @@
     <div class="note_data_block">
       <p>TODO LIST:</p>
       <div class="todo_list">
-        <div class="todo" v-for="todo in data.data.slice(0, 2)" :key="data.data[todo]"> // Better use :key="todo.id", but data.data - array of string, and they're don't have id's in this case
+<!--         Better use :key="todo.id", but data.data - array of string, and they're don't have id's in this case -->
+        <div class="todo" v-for="todo in data.data.slice(0, 2)" :key="data.data[todo]">
           <p :class="todo.checked ? 'checked' : ''" v-html="todo.description"/>
         </div>
       </div>

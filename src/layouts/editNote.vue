@@ -20,7 +20,8 @@
               Todo list:
             </p>
             <div class="todos_wrapper">
-              <div class="todo" v-for="todo in editedNote.data" :key="editedNote.data[todo]"> // Better use :key="todo.id", but editedNote.data - array of string, and they're don't have id's in this case
+<!--               Better use :key="todo.id", but editedNote.data - array of string, and they're don't have id's in this case-->
+              <div class="todo" v-for="todo in editedNote.data" :key="editedNote.data[todo]">
                 <custom-input :type="'checkbox'"
                               :custom-class="'checkbox'"
                               v-model="todo.checked"/>

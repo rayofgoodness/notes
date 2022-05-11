@@ -35,7 +35,7 @@ const Notes = {
         },
         REMOVE_NOTE_FROM_NOTES(state, payload) {
             state.notes = state.notes.filter(note => note.id !== payload);
-            localStorage.setItem('notes', JSON.stringify(localStoreNotes.filter(n => n.id !== payload)));
+            localStorage.setItem('notes', JSON.stringify(localStoreNotes.filter(note => note.id !== payload)));
         },
         SET_NOTE_TO_STATE(state, payload) {
             state.note = payload;
