@@ -10,6 +10,6 @@ git init
 git add -A
 git commit -m 'deploy'
 
-git push -f git@github.com:rayofgoodness/notes.github.io.git main:gh-pages
+git push -f git@github.com:rayofgoodness/notes.git main:gh-pages
 
 cd -
