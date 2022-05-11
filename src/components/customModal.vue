@@ -18,11 +18,6 @@
 
 export default {
   name: "customModal",
-  data() {
-    return {
-      open: true
-    }
-  },
   props: {
     title: {
       type: String
