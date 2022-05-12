@@ -51,7 +51,7 @@
                     :title="`Save changes?`"
                     @close="closeModalBackToMainPage">
         <div class="buttons_block">
-          <custom-button @click="saveChanges('/')">
+          <custom-button @click="backToMainPage">
             Save
           </custom-button>
           <custom-button @click="backToMain">
@@ -106,7 +106,7 @@ export default {
   },
   data() {
     return {
-      editedNote: null,
+      editedNote: {},
       isBackToMainPage: false,
       isCancelChanges: false,
       isRemovedTodo: false,
@@ -114,12 +114,11 @@ export default {
       removedTodo: {},
     }
   },
-  async created() {
+  async beforeCreate() {
     if (localStorage.getItem('notes')) {
       await this.$store.commit('SET_NOTES_FROM_LOCAL_STORE', JSON.parse(localStorage.getItem('notes')));
     }
-    await this.$store.dispatch('GET_NOTE_FROM_NOTES_STATE', parseInt(this.$route.params.id));
-    this.editedNote = this.NOTE;
+    this.editedNote = this.NOTE(+this.$route.params.id);
   },
   computed: {
     ...mapGetters([
@@ -133,15 +132,17 @@ export default {
     closeModalBackToMainPage() {
       this.isBackToMainPage = false;
     },
-    saveChanges(url) {
+    saveChanges() {
       this.$store.commit('ADD_NOTE_TO_NOTES', this.editedNote);
       this.displayNotification();
-      if (url) {
-        this.$router.push(url)
-      }
+    },
+    backToMainPage() {
+      this.$store.commit('ADD_NOTE_TO_NOTES', this.editedNote);
+      this.$router.push('/');
     },
     cancelChanges() {
-      this.editedNote = {...this.NOTE};
+      const notes = JSON.parse(localStorage.getItem('notes'));
+      this.editedNote = notes.find(note => note.id === +this.$route.params.id);
       this.isCancelChanges = false;
     },
     openModal(todo) {

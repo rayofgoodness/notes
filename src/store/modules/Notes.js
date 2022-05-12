@@ -19,7 +19,6 @@ const Notes = {
                 ],
             }
         ],
-        note: {}
     }),
     mutations: {
         SET_NOTES_FROM_LOCAL_STORE(state, payload) {
@@ -37,23 +36,14 @@ const Notes = {
             state.notes = state.notes.filter(note => note.id !== payload);
             localStorage.setItem('notes', JSON.stringify(localStoreNotes.filter(note => note.id !== payload)));
         },
-        SET_NOTE_TO_STATE(state, payload) {
-            state.note = payload;
-        }
-    },
-    actions: {
-        GET_NOTE_FROM_NOTES_STATE({state, commit}, payload) {
-            let storedNote = state.notes.find(note => note.id === payload)
-            commit('SET_NOTE_TO_STATE', storedNote)
-        }
     },
     getters: {
         NOTES(state) {
             return state.notes
         },
-        NOTE(state) {
-            return state.note
-        },
+        NOTE: (state) => (id) => {
+            return state.notes.find(note => note.id === id)
+        }
     },
 };
 

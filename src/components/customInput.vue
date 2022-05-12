@@ -4,8 +4,7 @@
            class="custom_input"
            :class="customClass"
            :disabled="isDisabled"
-           :type="type"
-           :placeholder="placeholder">
+           :type="type">
   </div>
 </template>
 
@@ -18,16 +17,12 @@ export default {
       default: 'text'
     },
     value: {
-      type: String,
+      type: [String, Boolean, Number],
       default: ''
     },
     isDisabled: {
       type: Boolean,
       default: false
-    },
-    placeholder: {
-      type: String,
-      default: ''
     },
     customClass: {
       type: String,
